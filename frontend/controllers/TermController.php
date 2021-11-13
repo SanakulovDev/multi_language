@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Language;
 use frontend\models\Term;
 use frontend\models\TermSearch;
 use yii\web\Controller;
@@ -67,7 +68,7 @@ class TermController extends Controller
     public function actionCreate()
     {
         $model = new Term();
-
+        $language = Language::find()->all();
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -78,6 +79,7 @@ class TermController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'language' => $language
         ]);
     }
 
