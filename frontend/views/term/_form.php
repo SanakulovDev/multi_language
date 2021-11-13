@@ -5,31 +5,28 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Term */
-/* @var $language frontend\models\Term */
+/* @var $termLanguage frontend\models\Language */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="term-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
     <div class="row d-flex align-items-center justify-content-center">
-        <?php foreach ($language  as $key => $item):?>
-            <div class="col-md-3 border ml-2 pl-4 mb-4" id =<?=$key?>>
-                <h4><?=$item->short?></h4>
+
+            <div class="col-md-4 border ml-2 pl-4 mb-4" id="card-item">
+
+                <h4><?= Yii::t('app','Add item ')?></h4>
+                <?= $form->field($termLanguage,'language_id')->dropDownList(\frontend\models\Language::selectList(),['promt'=>'Select a language'])?>
                 <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
                 <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
                 <div class="form-group">
-                    <a href=<?php if ($key +1 == $item->id)
-                        echo '#'.$item->id;
-                    else echo '#submit';?> class="btn btn-success"><?= Yii::t('app', 'Next')?></a>
+                    <?= Html::submitButton(Yii::t('app','Save'),['class'=>'btn btn-success', 'id'=>'submit'])?>
                 </div>
-                <?= $key?>
             </div>
-        <?php endforeach?>
     </div>
-    <?= Html::submitButton(Yii::t('app','Save'),['class'=>'btn btn-success', 'id'=>'submit'])?>
 
 
     <?php ActiveForm::end(); ?>

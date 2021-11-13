@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Term */
-/* @var $language frontend\models\Language */
+/* @var $termLanguage frontend\models\Language */
 
 $this->title = Yii::t('app', 'Create Term');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Terms'), 'url' => ['index']];
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'language'=>$language
+        'termLanguage' => $termLanguage
     ]) ?>
 
 </div>

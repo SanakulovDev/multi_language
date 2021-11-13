@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\models\Language;
 use frontend\models\Term;
+use frontend\models\TermLanguage;
 use frontend\models\TermSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -68,18 +69,30 @@ class TermController extends Controller
     public function actionCreate()
     {
         $model = new Term();
+        $termLanguage = new TermLanguage();
         $language = Language::find()->all();
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post()) && $model->save() && $termLanguage->load($this->request->post())){
+                $termLanguage->term_id = $model->id;
+            if ($termLanguage->save()) {
+             $model = new Term();
+                $termLanguage = new TermLanguage();
+                return $this->render('create', [
+                    'model' => $model,
+                    'termLanguage' => $termLanguage,
+                    'language'=>$language
+                ]);
             }
-        } else {
+
+        }
+        }
+        else {
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
-            'language' => $language
+            'termLanguage' => $termLanguage
         ]);
     }
 
