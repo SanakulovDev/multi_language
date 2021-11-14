@@ -1,9 +1,8 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "language".
@@ -12,8 +11,7 @@ use yii\helpers\ArrayHelper;
  * @property string $name
  * @property string $short
  *
- * @property ShortLanguage[] $shortLanguages
- * @property ShortLanguage[] $shortLanguages0
+ * @property ShortsLanguage[] $shortsLanguages
  * @property TermLanguage[] $termLanguages
  */
 class Language extends \yii\db\ActiveRecord
@@ -33,7 +31,8 @@ class Language extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'short'], 'required'],
-            [['name', 'short'], 'string', 'max' => 30],
+            [['name'], 'string', 'max' => 30],
+            [['short'], 'string', 'max' => 10],
         ];
     }
 
@@ -50,23 +49,13 @@ class Language extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[ShortLanguages]].
+     * Gets query for [[ShortsLanguages]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getShortLanguages()
+    public function getShortsLanguages()
     {
-        return $this->hasMany(ShortLanguage::className(), ['language_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[ShortLanguages0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getShortLanguages0()
-    {
-        return $this->hasMany(ShortLanguage::className(), ['language_id' => 'id']);
+        return $this->hasMany(ShortsLanguage::className(), ['language_id' => 'id']);
     }
 
     /**
@@ -77,10 +66,5 @@ class Language extends \yii\db\ActiveRecord
     public function getTermLanguages()
     {
         return $this->hasMany(TermLanguage::className(), ['language_id' => 'id']);
-    }
-
-    public static function selectList() {
-
-        return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 }

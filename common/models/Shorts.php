@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
@@ -10,8 +10,11 @@ use Yii;
  * @property int $id
  * @property string $title
  * @property string $description
+ * @property string $created_at
+ * @property string $updated_at
  *
- * @property ShortLanguage[] $shortLanguages
+ * @property ShortsHistory[] $shortsHistories
+ * @property ShortsLanguage[] $shortsLanguages
  */
 class Shorts extends \yii\db\ActiveRecord
 {
@@ -30,7 +33,8 @@ class Shorts extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'description'], 'required'],
-            [['title'], 'string', 'max' => 30],
+            [['created_at', 'updated_at'], 'safe'],
+            [['title'], 'string', 'max' => 35],
             [['description'], 'string', 'max' => 100],
         ];
     }
@@ -44,16 +48,28 @@ class Shorts extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
     /**
-     * Gets query for [[ShortLanguages]].
+     * Gets query for [[ShortsHistories]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getShortLanguages()
+    public function getShortsHistories()
     {
-        return $this->hasMany(ShortLanguage::className(), ['short_id' => 'id']);
+        return $this->hasMany(ShortsHistory::className(), ['shorts_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ShortsLanguages]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getShortsLanguages()
+    {
+        return $this->hasMany(ShortsLanguage::className(), ['short_id' => 'id']);
     }
 }

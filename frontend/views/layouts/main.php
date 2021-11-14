@@ -38,8 +38,6 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
-        ['label' => 'Add language', 'url' => ['/language/create']],
-        ['label' => 'Add Terms', 'url' => ['/term/create']],
 
     ];
     if (Yii::$app->user->isGuest) {

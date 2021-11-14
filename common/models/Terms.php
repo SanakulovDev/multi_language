@@ -1,26 +1,29 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
 /**
- * This is the model class for table "term".
+ * This is the model class for table "terms".
  *
  * @property int $id
  * @property string $title
  * @property string $description
+ * @property string $created_at
+ * @property string $updated_at
  *
+ * @property TermHistory[] $termHistories
  * @property TermLanguage[] $termLanguages
  */
-class Term extends \yii\db\ActiveRecord
+class Terms extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'term';
+        return 'terms';
     }
 
     /**
@@ -30,7 +33,8 @@ class Term extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'description'], 'required'],
-            [['title'], 'string', 'max' => 30],
+            [['created_at', 'updated_at'], 'safe'],
+            [['title'], 'string', 'max' => 35],
             [['description'], 'string', 'max' => 100],
         ];
     }
@@ -44,7 +48,19 @@ class Term extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * Gets query for [[TermHistories]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTermHistories()
+    {
+        return $this->hasMany(TermHistory::className(), ['term_id' => 'id']);
     }
 
     /**

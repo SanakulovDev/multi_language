@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Language;
+use common\models\Language;
 
 /**
- * LanguageSearch represents the model behind the search form of `frontend\models\Language`.
+ * LanguageSearch represents the model behind the search form of `common\models\Language`.
  */
 class LanguageSearch extends Language
 {

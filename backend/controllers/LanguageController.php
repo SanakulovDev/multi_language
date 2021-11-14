@@ -1,9 +1,9 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use frontend\models\Language;
-use frontend\models\LanguageSearch;
+use common\models\Language;
+use common\models\LanguageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Language */
+/* @var $model common\models\Language */
 
 $this->title = Yii::t('app', 'Update Language: {name}', [
     'name' => $model->name,

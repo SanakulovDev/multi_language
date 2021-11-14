@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
@@ -12,7 +12,7 @@ use Yii;
  * @property int $term_id
  *
  * @property Language $language
- * @property Term $term
+ * @property Terms $term
  */
 class TermLanguage extends \yii\db\ActiveRecord
 {
@@ -32,8 +32,8 @@ class TermLanguage extends \yii\db\ActiveRecord
         return [
             [['language_id', 'term_id'], 'required'],
             [['language_id', 'term_id'], 'integer'],
-            [['term_id'], 'exist', 'skipOnError' => true, 'targetClass' => Term::className(), 'targetAttribute' => ['term_id' => 'id']],
             [['language_id'], 'exist', 'skipOnError' => true, 'targetClass' => Language::className(), 'targetAttribute' => ['language_id' => 'id']],
+            [['term_id'], 'exist', 'skipOnError' => true, 'targetClass' => Terms::className(), 'targetAttribute' => ['term_id' => 'id']],
         ];
     }
 
@@ -66,6 +66,6 @@ class TermLanguage extends \yii\db\ActiveRecord
      */
     public function getTerm()
     {
-        return $this->hasOne(Term::className(), ['id' => 'term_id']);
+        return $this->hasOne(Terms::className(), ['id' => 'term_id']);
     }
 }

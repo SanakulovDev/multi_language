@@ -1,28 +1,27 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
 /**
- * This is the model class for table "short_language".
+ * This is the model class for table "shorts_language".
  *
  * @property int $id
- * @property int $short_id
  * @property int $language_id
+ * @property int $short_id
  *
  * @property Language $language
- * @property Language $language0
  * @property Shorts $short
  */
-class ShortLanguage extends \yii\db\ActiveRecord
+class ShortsLanguage extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'short_language';
+        return 'shorts_language';
     }
 
     /**
@@ -31,11 +30,10 @@ class ShortLanguage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['short_id', 'language_id'], 'required'],
-            [['short_id', 'language_id'], 'integer'],
+            [['language_id', 'short_id'], 'required'],
+            [['language_id', 'short_id'], 'integer'],
+            [['language_id'], 'exist', 'skipOnError' => true, 'targetClass' => Language::className(), 'targetAttribute' => ['language_id' => 'id']],
             [['short_id'], 'exist', 'skipOnError' => true, 'targetClass' => Shorts::className(), 'targetAttribute' => ['short_id' => 'id']],
-            [['language_id'], 'exist', 'skipOnError' => true, 'targetClass' => Language::className(), 'targetAttribute' => ['language_id' => 'id']],
-            [['language_id'], 'exist', 'skipOnError' => true, 'targetClass' => Language::className(), 'targetAttribute' => ['language_id' => 'id']],
         ];
     }
 
@@ -46,8 +44,8 @@ class ShortLanguage extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'short_id' => Yii::t('app', 'Short ID'),
             'language_id' => Yii::t('app', 'Language ID'),
+            'short_id' => Yii::t('app', 'Short ID'),
         ];
     }
 
@@ -57,16 +55,6 @@ class ShortLanguage extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getLanguage()
-    {
-        return $this->hasOne(Language::className(), ['id' => 'language_id']);
-    }
-
-    /**
-     * Gets query for [[Language0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLanguage0()
     {
         return $this->hasOne(Language::className(), ['id' => 'language_id']);
     }
