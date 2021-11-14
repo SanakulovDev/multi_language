@@ -44,6 +44,18 @@ return [
             'rules' => [
             ],
         ],
+
+
+        'languagepicker' => [
+            'class' => 'lajax\languagepicker\Component',
+            // List of available languages (icons and text)
+            'languages' => [
+                'en' => 'English',
+                'uz' => 'Uzbek',
+                'ru' => 'Russian',
+                'qq'=>"qoraqalpoq"
+            ]
+        ]
     ],
     'params' => $params,
 ];

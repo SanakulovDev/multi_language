@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\TermLanguage;
 use common\models\Terms;
 use common\models\TermsSearch;
 use yii\web\Controller;
@@ -55,7 +56,7 @@ class TermsController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => TermLanguage::findOne([$id])
         ]);
     }
 
@@ -67,9 +68,11 @@ class TermsController extends Controller
     public function actionCreate()
     {
         $model = new Terms();
-
+        $termLanguage = new TermLanguage();
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post()) && $termLanguage->load($this->request->post()) && $model->save()) {
+                $termLanguage->term_id = $model->id;
+                if ($termLanguage->save())
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -78,6 +81,7 @@ class TermsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'termLanguage'=>$termLanguage
         ]);
     }
 

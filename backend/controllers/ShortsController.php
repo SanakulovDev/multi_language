@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Shorts;
+use common\models\ShortsLanguage;
 use common\models\ShortsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -55,7 +56,7 @@ class ShortsController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => ShortsLanguage::findOne($id)
         ]);
     }
 
@@ -67,9 +68,11 @@ class ShortsController extends Controller
     public function actionCreate()
     {
         $model = new Shorts();
-
+        $shortLanguage = new ShortsLanguage();
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())  && $shortLanguage->load($this->request->post()) && $model->save()) {
+                $shortLanguage->short_id = $model->id;
+                if ($shortLanguage->save())
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -78,6 +81,7 @@ class ShortsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'shortLanguage'=>$shortLanguage
         ]);
     }
 

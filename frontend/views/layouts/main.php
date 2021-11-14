@@ -36,8 +36,8 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Terms', 'url' => ['/site/terms']],
+        ['label' => 'Shorts', 'url' => ['/shorts/index']],
 
     ];
     if (Yii::$app->user->isGuest) {
@@ -57,8 +57,16 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav'],
         'items' => $menuItems,
     ]);
+   echo \lajax\languagepicker\widgets\LanguagePicker::widget([
+        'itemTemplate' => '<li class="dropdown-item"><a href="{link}"  title="{language}"><i id="{language}"></i> {name}</a></li>',
+        'activeItemTemplate' => '<button data-toggle="dropdown" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block dropdown-toggle bg-danger" title="{language}"><i id="{language}"></i> {name}</button>',
+        'parentTemplate' => '<div class="language-picker m-1 dropdown-list {size}"><div>{activeItem}<ul class="dropdown-menu">{items}</ul></div></div>',
+        'languageAsset' => 'lajax\languagepicker\bundles\LanguageLargeIconsAsset',      // StyleSheets
+        'languagePluginAsset' => 'lajax\languagepicker\bundles\LanguagePluginAsset',    // JavaScripts
+    ]);
     NavBar::end();
     ?>
+
 </header>
 
 <main role="main" class="flex-shrink-0">
@@ -67,6 +75,7 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+
         <?= $content ?>
     </div>
 </main>

@@ -2,6 +2,9 @@
 
 namespace frontend\controllers;
 
+use common\models\Language;
+use common\models\TermLanguage;
+use common\models\Terms;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -217,8 +220,8 @@ class SiteController extends Controller
      * Verify email address
      *
      * @param string $token
-     * @throws BadRequestHttpException
      * @return yii\web\Response
+     * @throws BadRequestHttpException
      */
     public function actionVerifyEmail($token)
     {
@@ -254,6 +257,20 @@ class SiteController extends Controller
 
         return $this->render('resendVerificationEmail', [
             'model' => $model
+        ]);
+    }
+
+
+//    actionTerms
+
+    public function actionTerms()
+    {
+        $lang = Yii::$app->language;
+        $language = Language::findOne(['short' => $lang]);
+        $model = TermLanguage::findAll(['language_id' => $language->id]);
+
+        return $this->render('terms',[
+            'model'=>$model
         ]);
     }
 }

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Shorts */
-
+/* @var $shortLanguage common\models\ShortsLanguage */
 $this->title = Yii::t('app', 'Update Shorts: {name}', [
     'name' => $model->title,
 ]);
@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'shortLanguage' => $shortLanguage
     ]) ?>
 
 </div>
