@@ -9,7 +9,8 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','languagepicker'],
+    'language'=>'uz',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
@@ -45,6 +46,17 @@ return [
             ],
         ],
 
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'en-US',
+                    'basePath' =>  __DIR__.DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .'common/messages',
+                ],
+
+
+            ],
+        ],
 
         'languagepicker' => [
             'class' => 'lajax\languagepicker\Component',

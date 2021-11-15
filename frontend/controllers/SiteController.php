@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Language;
+use common\models\ShortsLanguage;
 use common\models\TermLanguage;
 use common\models\Terms;
 use frontend\models\ResendVerificationEmailForm;
@@ -267,9 +268,17 @@ class SiteController extends Controller
     {
         $lang = Yii::$app->language;
         $language = Language::findOne(['short' => $lang]);
-        $model = TermLanguage::findAll(['language_id' => $language->id]);
-
+        $model = TermLanguage::find()->where(['language_id' => $language->id])->all();
         return $this->render('terms',[
+            'model'=>$model
+        ]);
+    }
+    public function actionShorts()
+    {
+        $lang = Yii::$app->language;
+        $language = Language::findOne(['short' => $lang]);
+        $model = ShortsLanguage::find()->where(['language_id' => $language->id])->all();
+        return $this->render('shorts',[
             'model'=>$model
         ]);
     }
